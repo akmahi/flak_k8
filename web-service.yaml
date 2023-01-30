@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-dev-service
+  namespace: first-dev
+spec:
+  selector:
+    app: flask-dev
+  ports:
+    - protocol: "TCP"
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

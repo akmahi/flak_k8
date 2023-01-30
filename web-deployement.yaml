@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app
+  namespace: first-dev
+spec:
+  selector:
+    matchLabels:
+      app: flask-dev
+  template:
+    metadata:
+      labels:
+        app: flask-dev
+    spec:
+      containers:
+        - name: flask-dev
+          image: ajithkumarr/doc-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: web-config
+            - secretRef:
+                name: mysecret
+          volumeMounts:
+            - mountPath: /var/lib/app/
+              name: web-dev
+      volumes:
+        - name: web-dev
+          persistentVolumeClaim:
+            claimName: web-pv-claim
+
