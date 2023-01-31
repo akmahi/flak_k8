@@ -12,9 +12,19 @@ spec:
       labels:
         app: flask-dev
     spec:
+      initContainers:
+        - name: flask-db-migrate
+          image: ajithkumarr/doc-web:v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: web-config
+            - secretRef:
+                name: mysecret
+          command: ["python", "migrate.py"]
       containers:
         - name: flask-dev
-          image: ajithkumarr/doc-web:latest
+          image: ajithkumarr/doc-web:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
