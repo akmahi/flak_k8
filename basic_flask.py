@@ -7,9 +7,9 @@ from helper import *
 app = Flask(__name__)
 
 
-create_table()
+# create_table()
 
-@app.route("/emp", methods=["GET"])
+@app.route("/employee", methods=["GET"])
 def get_all_employees():
     response, employees = 200, []
     try:
@@ -21,7 +21,7 @@ def get_all_employees():
         response = 500
     return make_response(jsonify({"data": employees, "response":ERROR_CODES[response]}), response)
 
-@app.route("/emp/<int:emp_id>", methods=["GET"])
+@app.route("/employee/<int:emp_id>", methods=["GET"])
 def get_employee(emp_id):
     response, employees = 200, []
     try:
@@ -32,7 +32,7 @@ def get_employee(emp_id):
         response = 500
     return make_response(jsonify({"data": employees, "response":ERROR_CODES[response]}), response)
 
-@app.route("/emp/add", methods=["POST"])
+@app.route("/employee/add", methods=["POST"])
 def add_employee():
     response, employee = 200, []
     try:
@@ -49,7 +49,7 @@ def add_employee():
         response = 403
     return make_response(jsonify({"data":employee, "response":ERROR_CODES[response]}), response)
 
-@app.route("/emp/update", methods=["PATCH", "PUT"])
+@app.route("/employee/update", methods=["PATCH", "PUT"])
 def update_employee():
     response = 200
     try:
@@ -68,7 +68,7 @@ def update_employee():
         response = 403
     return make_response(jsonify({"data":[], "response":ERROR_CODES[response]}), response)
 
-@app.route("/emp/delete/<int:emp_id>", methods=["DELETE"])
+@app.route("/employee/delete/<int:emp_id>", methods=["DELETE"])
 def delete_employee(emp_id):
     response = 200
     try:
